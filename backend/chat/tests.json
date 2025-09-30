@@ -1,0 +1,27 @@
+{
+  "tests": [
+    {
+      "name": "Test chat completion",
+      "method": "POST",
+      "body": {
+        "messages": [
+          {
+            "role": "user",
+            "content": "Создай лендинг для кофейни"
+          }
+        ]
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "reply": "string",
+        "model": "gpt-4o-mini"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Test OPTIONS for CORS",
+      "method": "OPTIONS",
+      "expectedStatus": 200
+    }
+  ]
+}
