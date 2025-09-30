@@ -45,7 +45,7 @@ export default function Register() {
         console.warn('Failed to send welcome email:', emailErr);
       }
       
-      navigate('/profile');
+      navigate('/');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Ошибка регистрации');
     } finally {
@@ -55,7 +55,7 @@ export default function Register() {
 
   const handleOAuthSuccess = (token: string, user: any) => {
     saveAuth(token, user);
-    navigate('/profile');
+    navigate('/');
   };
 
   const handleOAuthError = (error: string) => {

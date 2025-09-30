@@ -23,7 +23,7 @@ export default function Login() {
     try {
       const response = await authAPI.login(email, password);
       saveAuth(response.token, response.user);
-      navigate('/profile');
+      navigate('/');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Ошибка входа');
     } finally {
@@ -33,7 +33,7 @@ export default function Login() {
 
   const handleOAuthSuccess = (token: string, user: any) => {
     saveAuth(token, user);
-    navigate('/profile');
+    navigate('/');
   };
 
   const handleOAuthError = (error: string) => {
