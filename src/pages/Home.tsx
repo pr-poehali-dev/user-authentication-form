@@ -1,11 +1,28 @@
 import { useNavigate } from 'react-router-dom';
-import { isAuthenticated } from '@/lib/auth';
+import { isAuthenticated, getUser } from '@/lib/auth';
+import { useEffect, useState } from 'react';
 import NeomorphButton from '@/components/NeomorphButton';
 import Icon from '@/components/ui/icon';
 
 export default function Home() {
   const navigate = useNavigate();
   const authenticated = isAuthenticated();
+  const user = getUser();
+  const [showWelcome, setShowWelcome] = useState(false);
+
+  useEffect(() => {
+    const justLoggedIn = sessionStorage.getItem('just_logged_in');
+    if (justLoggedIn === 'true') {
+      setShowWelcome(true);
+      sessionStorage.removeItem('just_logged_in');
+      
+      const timer = setTimeout(() => {
+        setShowWelcome(false);
+      }, 5000);
+      
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#E0E5EC] flex items-center justify-center p-4">
@@ -18,6 +35,32 @@ export default function Home() {
             Система авторизации и управления аккаунтом
           </p>
         </div>
+
+        {showWelcome && authenticated && (
+          <div className="bg-gradient-to-r from-[#667EEA] to-[#764BA2] rounded-3xl p-6 shadow-neomorph mb-6 animate-fade-in">
+            <div className="flex items-center justify-between text-white">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                  <Icon name="Sparkles" size={24} />
+                </div>
+                <div>
+                  <p className="text-lg font-semibold">
+                    Привет, {user?.firstName || user?.email}! 👋
+                  </p>
+                  <p className="text-sm opacity-90">
+                    Рады видеть вас снова в системе!
+                  </p>
+                </div>
+              </div>
+              <button 
+                onClick={() => setShowWelcome(false)}
+                className="p-2 hover:bg-white/10 rounded-full transition-colors"
+              >
+                <Icon name="X" size={20} />
+              </button>
+            </div>
+          </div>
+        )}
 
         <div className="bg-[#E0E5EC] rounded-3xl p-8 shadow-neomorph mb-8">
           {authenticated ? (

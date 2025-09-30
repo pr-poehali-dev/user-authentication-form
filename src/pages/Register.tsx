@@ -45,6 +45,7 @@ export default function Register() {
         console.warn('Failed to send welcome email:', emailErr);
       }
       
+      sessionStorage.setItem('just_logged_in', 'true');
       navigate('/');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Ошибка регистрации');
@@ -55,6 +56,7 @@ export default function Register() {
 
   const handleOAuthSuccess = (token: string, user: any) => {
     saveAuth(token, user);
+    sessionStorage.setItem('just_logged_in', 'true');
     navigate('/');
   };
 

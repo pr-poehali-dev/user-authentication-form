@@ -23,6 +23,7 @@ export default function Login() {
     try {
       const response = await authAPI.login(email, password);
       saveAuth(response.token, response.user);
+      sessionStorage.setItem('just_logged_in', 'true');
       navigate('/');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Ошибка входа');
@@ -33,6 +34,7 @@ export default function Login() {
 
   const handleOAuthSuccess = (token: string, user: any) => {
     saveAuth(token, user);
+    sessionStorage.setItem('just_logged_in', 'true');
     navigate('/');
   };
 
