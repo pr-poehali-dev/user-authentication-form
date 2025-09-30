@@ -1,4 +1,6 @@
 {
+  "two-factor": "https://functions.poehali.dev/e0b23d6a-ea22-444f-b339-b9bb37071cb3",
+  "admin": "https://functions.poehali.dev/de0fba6f-e587-458d-a220-b88fd6e72298",
   "email": "https://functions.poehali.dev/9e72ce3d-fa65-46d8-9ee4-ae52d1f6daf9",
   "oauth": "https://functions.poehali.dev/8e1396a8-a2d8-438c-a755-9345c4d8b0ca",
   "auth": "https://functions.poehali.dev/17f386c1-c7a5-4462-913e-738a1e280193"

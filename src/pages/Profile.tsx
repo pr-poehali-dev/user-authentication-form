@@ -142,7 +142,7 @@ export default function Profile() {
           {loading ? 'Сохранение...' : 'Сохранить изменения'}
         </NeomorphButton>
 
-        <div className="flex gap-3 mt-4">
+        <div className="grid grid-cols-2 gap-3 mt-4">
           <NeomorphButton 
             type="button" 
             variant="secondary" 
@@ -152,11 +152,23 @@ export default function Profile() {
             Настройки
           </NeomorphButton>
           
+          {user.email && (
+            <NeomorphButton 
+              type="button" 
+              variant="secondary" 
+              fullWidth
+              onClick={() => navigate('/admin')}
+            >
+              Админ
+            </NeomorphButton>
+          )}
+          
           <NeomorphButton 
             type="button" 
             variant="secondary" 
             fullWidth
             onClick={handleLogout}
+            className="col-span-2"
           >
             Выйти
           </NeomorphButton>

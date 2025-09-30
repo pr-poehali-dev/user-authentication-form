@@ -71,6 +71,17 @@ export default function Settings() {
           <NeomorphButton 
             variant="secondary" 
             fullWidth
+            onClick={() => navigate('/two-factor')}
+          >
+            <div className="flex items-center justify-center gap-2">
+              <Icon name="ShieldCheck" size={20} />
+              <span>Двухфакторная аутентификация</span>
+            </div>
+          </NeomorphButton>
+
+          <NeomorphButton 
+            variant="secondary" 
+            fullWidth
             onClick={() => navigate('/reset-password')}
           >
             <div className="flex items-center justify-center gap-2">

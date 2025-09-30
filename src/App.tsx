@@ -10,6 +10,8 @@ import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import ResetPassword from "./pages/ResetPassword";
 import Settings from "./pages/Settings";
+import TwoFactorSetup from "./pages/TwoFactorSetup";
+import AdminPanel from "./pages/AdminPanel";
 import OAuthCallback from "./pages/OAuthCallback";
 import NotFound from "./pages/NotFound";
 
@@ -28,6 +30,8 @@ const App = () => (
           <Route path="/profile" element={<Profile />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/two-factor" element={<TwoFactorSetup />} />
+          <Route path="/admin" element={<AdminPanel />} />
           <Route path="/auth/callback" element={<OAuthCallback />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
