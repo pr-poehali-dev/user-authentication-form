@@ -84,11 +84,21 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'fade-in': {
+					'0%': { opacity: '0', transform: 'translateY(10px)' },
+					'100%': { opacity: '1', transform: 'translateY(0)' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'fade-in': 'fade-in 0.3s ease-out'
+			},
+			boxShadow: {
+				'neomorph': '8px 8px 16px #c5cdd8, -8px -8px 16px #ffffff',
+				'neomorph-inset': 'inset 5px 5px 10px #c5cdd8, inset -5px -5px 10px #ffffff',
+				'neomorph-sm': '4px 4px 8px #c5cdd8, -4px -4px 8px #ffffff'
 			}
 		}
 	},
