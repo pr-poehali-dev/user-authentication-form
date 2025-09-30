@@ -1,0 +1,1 @@
+# No additional requirements needed - using built-in smtplib

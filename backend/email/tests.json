@@ -1,0 +1,22 @@
+{
+  "tests": [
+    {
+      "name": "Send welcome email without SMTP (expects graceful fail)",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "type": "welcome",
+        "to_email": "test@example.com",
+        "data": {
+          "name": "Test User",
+          "app_url": "https://example.com"
+        }
+      },
+      "expectedStatus": 500,
+      "expectedBody": {
+        "error": "string"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

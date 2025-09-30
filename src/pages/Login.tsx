@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import AuthLayout from '@/components/AuthLayout';
 import NeomorphInput from '@/components/NeomorphInput';
 import NeomorphButton from '@/components/NeomorphButton';
+import OAuthButtons from '@/components/OAuthButtons';
 import { authAPI } from '@/lib/api';
 import { saveAuth } from '@/lib/auth';
 import Icon from '@/components/ui/icon';
@@ -28,6 +29,15 @@ export default function Login() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleOAuthSuccess = (token: string, user: any) => {
+    saveAuth(token, user);
+    navigate('/profile');
+  };
+
+  const handleOAuthError = (error: string) => {
+    setError(error);
   };
 
   return (
@@ -65,6 +75,8 @@ export default function Login() {
         <NeomorphButton type="submit" fullWidth disabled={loading}>
           {loading ? 'Загрузка...' : 'Войти'}
         </NeomorphButton>
+
+        <OAuthButtons onSuccess={handleOAuthSuccess} onError={handleOAuthError} />
 
         <div className="text-center space-y-3 mt-6">
           <button

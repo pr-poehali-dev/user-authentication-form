@@ -3,8 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import AuthLayout from '@/components/AuthLayout';
 import NeomorphInput from '@/components/NeomorphInput';
 import NeomorphButton from '@/components/NeomorphButton';
+import OAuthButtons from '@/components/OAuthButtons';
 import { authAPI } from '@/lib/api';
 import { saveAuth } from '@/lib/auth';
+import { emailAPI } from '@/lib/email';
 import Icon from '@/components/ui/icon';
 
 export default function Register() {
@@ -36,12 +38,28 @@ export default function Register() {
     try {
       const response = await authAPI.register(email, password, firstName, lastName);
       saveAuth(response.token, response.user);
+      
+      try {
+        await emailAPI.sendWelcomeEmail(email, firstName || 'друг', window.location.origin);
+      } catch (emailErr) {
+        console.warn('Failed to send welcome email:', emailErr);
+      }
+      
       navigate('/profile');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Ошибка регистрации');
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleOAuthSuccess = (token: string, user: any) => {
+    saveAuth(token, user);
+    navigate('/profile');
+  };
+
+  const handleOAuthError = (error: string) => {
+    setError(error);
   };
 
   return (
@@ -109,6 +127,8 @@ export default function Register() {
         <NeomorphButton type="submit" fullWidth disabled={loading}>
           {loading ? 'Загрузка...' : 'Зарегистрироваться'}
         </NeomorphButton>
+
+        <OAuthButtons onSuccess={handleOAuthSuccess} onError={handleOAuthError} />
 
         <div className="text-center space-y-3 mt-6">
           <div className="flex items-center justify-center gap-2 text-sm text-[#718096]">

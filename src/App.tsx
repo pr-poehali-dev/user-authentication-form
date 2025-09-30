@@ -10,6 +10,7 @@ import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import ResetPassword from "./pages/ResetPassword";
 import Settings from "./pages/Settings";
+import OAuthCallback from "./pages/OAuthCallback";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/profile" element={<Profile />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/auth/callback" element={<OAuthCallback />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

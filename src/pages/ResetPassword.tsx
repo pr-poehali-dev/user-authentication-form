@@ -4,6 +4,7 @@ import AuthLayout from '@/components/AuthLayout';
 import NeomorphInput from '@/components/NeomorphInput';
 import NeomorphButton from '@/components/NeomorphButton';
 import { authAPI } from '@/lib/api';
+import { emailAPI } from '@/lib/email';
 import Icon from '@/components/ui/icon';
 
 export default function ResetPassword() {
@@ -30,6 +31,16 @@ export default function ResetPassword() {
       setSuccess('Ссылка для сброса пароля отправлена на email!');
       if (response.reset_token) {
         setResetTokenDisplay(response.reset_token);
+        
+        try {
+          await emailAPI.sendPasswordResetEmail(
+            email,
+            response.reset_token,
+            `${window.location.origin}/reset-password`
+          );
+        } catch (emailErr) {
+          console.warn('Failed to send reset email:', emailErr);
+        }
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Ошибка отправки');
@@ -63,6 +74,13 @@ export default function ResetPassword() {
     try {
       await authAPI.resetPassword(resetToken, newPassword);
       setSuccess('Пароль успешно изменен!');
+      
+      try {
+        await emailAPI.sendPasswordChangedEmail(email);
+      } catch (emailErr) {
+        console.warn('Failed to send password changed email:', emailErr);
+      }
+      
       setTimeout(() => navigate('/login'), 2000);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Ошибка сброса пароля');
